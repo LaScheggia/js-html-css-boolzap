@@ -106,14 +106,14 @@ const app = new Vue({
     },
 
     
+
+    //??
     displayMessages(index) {
       this.contacts.forEach((contact) => {
         contact.visible = false
       });
       this.contacts[index].visible = true;
     },
-
-
   },
 
 

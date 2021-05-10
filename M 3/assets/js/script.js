@@ -117,6 +117,33 @@ const app = new Vue({
   },
 
 
+  //??
+  botMessage() {
+    this.contacts.forEach((contact) => {
+      if (contact.visible === true) {
+        contact.messages.push(
+          {
+            date: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+            text: this.msgSent,
+            status: 'sent'
+          }
+        );
+        this.msgSent = '';
+        setTimeout(() => {
+          contact.messages.push(
+            {
+              date: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+              text: 'OK',
+              status: 'received'
+            }
+          );
+        }, 1000);
+      }
+    });
+  },
+
+
+
 
 
 
