@@ -11,111 +11,107 @@
 </head>
 <body>
 
-  <div id="app" class="container">
-    <!-- contenitore sx -->
-    <div class="left">
-        <div class="header-left">
-            <div class="header-left-logo">
-                <img :src="'assets/css/img/avatar'+ user.avatar +'.jpg'" :alt="user.name">
-                <span>{{ user.name }}</span>
+    <div id="app" class="container">
+        <!-- contenitore sx -->
+        <div class="left">
+            <div class="header-left">
+                <div class="header-left-logo">
+                    <img :src="'assets/css/img/avatar'+ user.avatar +'.jpg'" :alt="user.name">
+                    <span>{{ user.name }}</span>
+                </div>
+                <div class="header-left-icons">
+                    <i class="fas fa-circle-notch"></i>
+                    <i class="fas fa-comment-alt"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                </div>
             </div>
-            <div class="header-left-icons">
-                <i class="fas fa-circle-notch"></i>
-                <i class="fas fa-comment-alt"></i>
-                <i class="fas fa-ellipsis-v"></i>
+            <div class="left-disclaimer">
+                <div class="left-disclaimer-logo">
+                    <i class="fa fa-bell-slash" aria-hidden="true"></i>
+                </div>
+                <div class="left-disclaimer-text">
+                    <h3>Ricevi notifiche di nuovi messaggi</h3>
+                    <a href="#">Attiva notifiche desktop</a>
+                </div>
             </div>
-        </div>
-        <div class="left-disclaimer">
-            <div class="left-disclaimer-logo">
-                <i class="fa fa-bell-slash" aria-hidden="true"></i>
+            <div class="left-searchbar">
+                <label class="search-label" for="search">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </label>
+                <input id="contacts-filter" class="left-searchbar-input" placeholder="Cerca o inizia una nuova chat"
+                       name="search">
             </div>
-            <div class="left-disclaimer-text">
-                <h3>Ricevi notifiche di nuovi messaggi</h3>
-                <a href="#">Attiva notifiche desktop</a>
-            </div>
-        </div>
-        <div class="left-searchbar">
-            <label class="search-label" for="search">
-                <i class="fa fa-search" aria-hidden="true"></i>
-            </label>
-            <input id="contacts-filter" class="left-searchbar-input" placeholder="Cerca o inizia una nuova chat"
-                   name="search">
-        </div>
-
-
-        <div class="contacts">
-             <!-- utilizzo del teplate per elementi dinamici (non viene stampato nell'HTML) -->
-            <template v-for="contact in contacts">
-                <!-- contatto -->
-                <div class="contact">
-                    <div class="contact-logo">
-                        <img :src="'assets/css/img/avatar'+ contact.avatar +'.jpg'" :alt="contact.name">
+            <div class="contacts">
+    
+                 <!-- utilizzo del teplate per elementi dinamici (non viene stampato nell'HTML) -->
+                <template v-for="(contact, index) in contacts">
+                    <!-- contatto -->
+                    <div class="contact"
+                    :class="{'active' : contactActive === index}"
+                    @click="contactActive = index"
+                    v-if="contact.visible">
+                        <div class="contact-logo">
+                            <img :src="'assets/css/img/avatar'+ contact.avatar +'.jpg'" :alt="contact.name">
+                        </div>
+                        <div class="contact-info">
+                            <h3>
+                                <span class="contact-name">{{ contact.name }}</span>
+                                <span class="time f-right"></span>
+                            </h3>
+                            <small></small>
+                        </div>
                     </div>
-                    <div class="contact-info">
-                        <h3>
-                            <span class="contact-name">{{ contact.name }}</span>
-                            <span class="time f-right"></span>
-                        </h3>
-                        <small></small>
+                    <!-- /contatto -->
+                </template>
+    
+    
+            </div>
+        </div>
+        <!-- /contenitore sx -->
+        <!-- contenitore dx -->
+        <div class="right">
+            <div class="header-right">
+                <div class="header-right-logo">
+                    <img :src="`assets/css/img/avatar${contacts[contactActive].avatar}.jpg`" :alt="contacts[contactActive].name">
+                    <h3><span id="header-right-contact-name">{{ contacts[contactActive].name }}</span> <br>
+                      <small class="time">Ultimo accesso oggi alle </small></h3>
+                </div>
+                <div class="header-right-icons">
+                    <i class="fas fa-search"></i>
+                    <i class="fas fa-paperclip"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                </div>
+            </div>
+            <div class="right-messages-container">
+                <div class="right-messages">
+                    <!-- ciclo v-for nella lista dei messaggi dell'utente attivo -->
+                     <div
+                    v-for="message in contacts[contactActive].messages"
+                     class="message"
+                     :class="message.status">
+                         <span class="message-text">{{ message.text }}</span> 
+                         <span class="message-time"> {{ message.date }}</span>
+                        <i class="fa fa-chevron-down f-right message-options"></i>
                     </div>
+    
+    
                 </div>
-                <!-- /contatto -->
-            </template>
+            </div>
+            <div class="right-footer">
+                <div class="right-footer-icon f-left">
+                    <i class="far fa-smile"></i>
+                </div>
+                <input class="new-message-inputs" placeholder="Scrivi un messaggio">
+                <div class="right-footer-icon f-right">
+                    <i class="fa fa-microphone" aria-hidden="true"></i>
+                </div>
+            </div>
         </div>
+        <!-- /contenitore dx -->
     </div>
+    
 
-
-
-    <!-- contenitore dx -->
-    <div class="right">
-        <div class="header-right">
-            <div class="header-right-logo">
-                <img src="assets/css/img/avatar_1.jpg" alt="">
-                <h3><span id="header-right-contact-name">Michele</span> <br>
-                  <small class="time">Ultimo accesso oggi alle </small></h3>
-            </div>
-            <div class="header-right-icons">
-                <i class="fas fa-search"></i>
-                <i class="fas fa-paperclip"></i>
-                <i class="fas fa-ellipsis-v"></i>
-            </div>
-        </div>
-        
-        <div class="right-messages-container">
-            <div class="right-messages">
-                 <div class="message sent">
-                     <span class="message-text">Hai portato a spasso il cane?</span> 
-                     <span class="message-time"> 10/01/2020 15:30:55</span>
-                    <i class="fa fa-chevron-down f-right message-options"></i>
-                </div>
-
-                 <div class="message sent">
-                     <span class="message-text">Ricordati di dargli da mangiare</span> 
-                     <span class="message-time"> 10/01/2020 15:50:00</span>
-                    <i class="fa fa-chevron-down f-right message-options"></i>
-                </div>
-
-                <div class="message received"><span class="message-text">Tutto fatto!</span> 
-                    <span class="message-time"> 10/01/2020 16:15:22</span> 
-                    <i class="fa fa-chevron-down f-right message-options"></i>
-                </div>
-            </div>
-        </div>
-
-        <div class="right-footer">
-            <div class="right-footer-icon f-left">
-                <i class="far fa-smile"></i>
-            </div>
-            <input class="new-message-inputs" placeholder="Scrivi un messaggio">
-            <div class="right-footer-icon f-right">
-                <i class="fa fa-microphone" aria-hidden="true"></i>
-            </div>
-        </div>
-    </div>
-    <!-- /contenitore dx -->
-
-
-  </div>
+  
 
 <script src="assets/js/script.js"></script>
 </body>

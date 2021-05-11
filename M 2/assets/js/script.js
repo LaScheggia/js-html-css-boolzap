@@ -91,33 +91,15 @@ const app = new Vue({
         }
       ],
     },
-  ]
+  ],
+  contactActive: 0
 
 
   },
-
-  mounted(){
-    this.contact[0].visible = true;
-  },
-
   methods:{
-    getSrc(index) {
-      return `assets/css/img/avatar${this.contacts[index].avatar}.jpg`;
-    },
 
-    
-
-    //??
-    displayMessages(index) {
-      this.contacts.forEach((contact) => {
-        contact.visible = false
-      });
-      this.contacts[index].visible = true;
-    },
   },
-
-
-
-
-
+  mounted(){
+    
+  }
 });
