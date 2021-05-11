@@ -101,7 +101,14 @@
                 <div class="right-footer-icon f-left">
                     <i class="far fa-smile"></i>
                 </div>
-                <input class="new-message-inputs" placeholder="Scrivi un messaggio">
+                <input 
+                  class="new-message-inputs" 
+                  placeholder="Scrivi un messaggio"
+                  type="text"
+                  v-model="str_new_msg"
+                  @keyup.enter="generateMessage"
+                  >
+
                 <div class="right-footer-icon f-right">
                     <i class="fa fa-microphone" aria-hidden="true"></i>
                 </div>

@@ -97,6 +97,21 @@ const app = new Vue({
 
   },
   methods:{
+    generateMessage(){
+      this.contacts[this.active_index].messages.push({
+        date: dayjs().format("DD/MM/YYYY HH:mm:ss"),
+        text: this.str_new_msg,
+        status: 'sent'
+      });
+      this.str_new_msg = '';
+      setTimeout(()=>{
+        this.contacts[this.active_index].messages.push({
+          date: dayjs().format("DD/MM/YYYY HH:mm:ss"),
+          text: "ok",
+          status: 'received'
+        });
+      },1000)
+    }
 
   },
   mounted(){
