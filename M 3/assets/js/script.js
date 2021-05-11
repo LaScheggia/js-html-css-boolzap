@@ -92,7 +92,8 @@ const app = new Vue({
       ],
     },
   ],
-  contactActive: 0
+  contactActive: 0,
+  str_new_msg :'',
 
 
   },
@@ -104,13 +105,15 @@ const app = new Vue({
         status: 'sent'
       });
       this.str_new_msg = '';
+
+
       setTimeout(()=>{
         this.contacts[this.active_index].messages.push({
           date: dayjs().format("DD/MM/YYYY HH:mm:ss"),
           text: "ok",
           status: 'received'
         });
-      },1000)
+      }, 1000)
     }
 
   },
