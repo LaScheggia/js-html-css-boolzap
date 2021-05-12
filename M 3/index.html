@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <title>Document</title>
 </head>
-<body>
 
+<body>
     <div id="app" class="container">
         <!-- contenitore sx -->
         <div class="left">
@@ -38,11 +38,8 @@
                 <label class="search-label" for="search">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </label>
-                <input 
-                  id="contacts-filter" 
-                  class="left-searchbar-input" 
-                  placeholder="Cerca o inizia una nuova chat"
-                  name="search">
+                <input id="contacts-filter" class="left-searchbar-input" placeholder="Cerca o inizia una nuova chat"
+                       name="search">
             </div>
             <div class="contacts">
     
@@ -59,9 +56,9 @@
                         <div class="contact-info">
                             <h3>
                                 <span class="contact-name">{{ contact.name }}</span>
-                                <span class="time f-right"></span>
+                                <span class="time f-right">{{ lastAccess(index)  }}</span>
                             </h3>
-                            <small></small>
+                            <small>{{ lastMessage(index)  }}</small>
                         </div>
                     </div>
                     <!-- /contatto -->
@@ -77,7 +74,7 @@
                 <div class="header-right-logo">
                     <img :src="`assets/css/img/avatar${contacts[contactActive].avatar}.jpg`" :alt="contacts[contactActive].name">
                     <h3><span id="header-right-contact-name">{{ contacts[contactActive].name }}</span> <br>
-                      <small class="time">Ultimo accesso oggi alle </small></h3>
+                      <small class="time">Ultimo accesso: {{ lastAccess(contactActive)  }}</small></h3>
                 </div>
                 <div class="header-right-icons">
                     <i class="fas fa-search"></i>
@@ -104,14 +101,10 @@
                 <div class="right-footer-icon f-left">
                     <i class="far fa-smile"></i>
                 </div>
-                <input 
-                  class="new-message-inputs" 
-                  placeholder="Scrivi un messaggio"
-                  type="text"
-                  v-model="str_new_msg"
-                  @keyup.enter="generateMessage"
-                  >
-
+                <input
+                v-model.trim="contactMessage"
+                @keyup.enter="sentMessage"
+                class="new-message-inputs" placeholder="Scrivi un messaggio">
                 <div class="right-footer-icon f-right">
                     <i class="fa fa-microphone" aria-hidden="true"></i>
                 </div>
@@ -120,11 +113,8 @@
         <!-- /contenitore dx -->
     </div>
     
-
-  
-
-<script src="assets/js/script.js"></script>
-</body>
-  
-</body>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.9.8/dayjs.min.js' integrity='sha512-kZ+x2gdehn6OZMWZSp3Vt5R+v9hQTYEATQwaUfWquhxbvNVAy6IRtYs7asdyxKUTqG0I5ZqBqnzcBrpnHJCAGw==' crossorigin='anonymous'></script>
+    <script src="assets/js/script.js"></script>
+    </body>
+    
 </html>

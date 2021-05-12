@@ -93,31 +93,57 @@ const app = new Vue({
     },
   ],
   contactActive: 0,
-  str_new_msg :'',
+  contactMessage:'',
+  risposte: ['Ma stai zittooooooooo','Non rompere','Adesso ti blocco.','Taci capra.','Vai a Pittolo','Non so nemmeno perché ti parlo', 'Leave me alone', 'Tà faat!']
 
 
   },
   methods:{
-    generateMessage(){
-      this.contacts[this.active_index].messages.push({
-        date: dayjs().format("DD/MM/YYYY HH:mm:ss"),
-        text: this.str_new_msg,
-        status: 'sent'
+
+    sentMessage(){
+
+
+      if(this.contactMessage.length > 0){
+
+        this.pushMessage(this.contactMessage, 'sent');
+        this.contactMessage = '';
+
+
+        setTimeout(()=>{
+          let risp = this.risposte[Math.floor(Math.random() * this.risposte.length-1)+1]
+          this.pushMessage(risp, 'received');
+        },1000);
+      }
+
+    },
+    pushMessage(text, status){
+      this.contacts[this.contactActive].messages.push({
+        date: dayjs().format('DD/MM/YYYY HH:mm:ss'),
+        text: text,
+        status: status
       });
-      this.str_new_msg = '';
+    },
+    lastAccess(index){
 
+      let contactMsgs  =  this.contacts[index].messages;
+      return contactMsgs[contactMsgs.length-1].date;
+    },
+    lastMessage(index){
 
-      setTimeout(()=>{
-        this.contacts[this.active_index].messages.push({
-          date: dayjs().format("DD/MM/YYYY HH:mm:ss"),
-          text: "ok",
-          status: 'received'
-        });
-      }, 1000)
+      let contactMsgs  =  this.contacts[index].messages;
+
+      if(contactMsgs[contactMsgs.length-1].text.length > 30){
+
+        let splicedMsg = contactMsgs[contactMsgs.length-1].text.slice(0, 30) + "...";
+        return splicedMsg;
+      }
+
+      return contactMsgs[contactMsgs.length-1].text;
     }
 
   },
   mounted(){
+
     
   }
 });
